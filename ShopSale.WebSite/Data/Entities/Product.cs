@@ -29,5 +29,19 @@
 		[DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = false)]
 		public double Stock { get; set; }
 		public User User { get; set; }
+
+		public string ImageFullPath
+		{
+			get
+			{
+				if (string.IsNullOrEmpty(this.ImageUrl))
+				{
+					return null;
+				}
+
+				return $"https://shopsalewebsite.azurewebsites.net{this.ImageUrl.Substring(1)}";
+			}
+		}
+
 	}
 }

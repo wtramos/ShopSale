@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroup')]/providers/Microsoft.Sql/servers/azurewtramos/databases/ShopSale",
+      "type": "mssql.azure",
+      "connectionId": "ShopSaleDb",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}
