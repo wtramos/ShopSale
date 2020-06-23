@@ -11,11 +11,18 @@
     {
         private ApiService _apiService;
         private ObservableCollection<Product> _products;
+        private bool isRefreshing;
 
         public ObservableCollection<Product> Products
         {
             get { return this._products; }
             set { this.SetValue(ref this._products, value); }
+        }
+
+        public bool IsRefreshing
+        {
+            get => this.isRefreshing;
+            set => this.SetValue(ref this.isRefreshing, value);
         }
 
         public ProductsViewModel()
@@ -26,10 +33,15 @@
 
         private async void LoadProducts()
         {
+            this.IsRefreshing = true;
+
             var response = await this._apiService.GetListAsync<Product>(
                 "https://shopsalewebsite.azurewebsites.net",
                 "/api",
                 "/Products");
+
+            this.IsRefreshing = false;
+
             if (!response.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert(
