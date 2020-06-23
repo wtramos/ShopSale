@@ -33,7 +33,7 @@
                     FirstName = "Walter",
                     LastName = "Torres",
                     Email = "walter.torres.ramos@gmail.com",
-                    UserName = "walter.torres",
+                    UserName = "walter.torres.ramos@gmail.com",
                     PhoneNumber = "938252115"
                 };
 
