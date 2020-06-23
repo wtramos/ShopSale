@@ -1,5 +1,7 @@
 ﻿namespace ShopSale.WebSite.Controllers
 {
+    using System;
+    using System.Linq;
     using System.Threading.Tasks;
     using System.IO;
     using Microsoft.AspNetCore.Mvc;
@@ -9,7 +11,7 @@
     using Helpers;
     using Data.Interfaces;
     using Models;
-    using System.Linq;
+    
 
     public class ProductsController : Controller
     {
@@ -61,14 +63,19 @@
                 var path = string.Empty;
                 if (view.ImageFile != null && view.ImageFile.Length > 0)
                 {
-                    path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\Products", view.ImageFile.FileName);
+                    var guid = Guid.NewGuid().ToString();
+                    var file = $"{guid}.jpg";
+
+                    path = Path.Combine(Directory.GetCurrentDirectory(),
+                            "wwwroot\\images\\Products",
+                            file);
 
                     using (var stream = new FileStream(path, FileMode.Create))
                     {
                         await view.ImageFile.CopyToAsync(stream);
                     }
 
-                    path = $"~/images/Products/{view.ImageFile.FileName}";
+                    path = $"~/images/Products/{file}";
                 }
 
                 // TODO: Pending to change to: this.User.Identity.Name
@@ -110,14 +117,19 @@
                     var path = view.ImageUrl;
                     if (view.ImageFile != null && view.ImageFile.Length > 0)
                     {
-                        path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\Products", view.ImageFile.FileName);
+                        var guid = Guid.NewGuid().ToString();
+                        var file = $"{guid}.jpg";
+
+                        path = Path.Combine(Directory.GetCurrentDirectory(),
+                                            "wwwroot\\images\\Products",
+                                            file);
 
                         using (var stream = new FileStream(path, FileMode.Create))
                         {
                             await view.ImageFile.CopyToAsync(stream);
                         }
 
-                        path = $"~/images/Products/{view.ImageFile.FileName}";
+                        path = $"~/images/Products/{file}";
                     }
 
                     // TODO: Pending to change to: this.User.Identity.Name
