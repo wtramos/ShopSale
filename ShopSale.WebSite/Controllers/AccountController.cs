@@ -1,21 +1,30 @@
 ﻿namespace ShopSale.WebSite.Controllers
 {
+    using System;
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Security.Claims;
+    using System.Text;
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.IdentityModel.Tokens;
     using Helpers;
     using Models;
     using Data.Entities;
-    
+   
 
     public class AccountController : Controller
     {
         private readonly IUserHelper _userHelper;
+        private readonly IConfiguration _configuration;
 
-        public AccountController(IUserHelper userHelper)
+        public AccountController(IUserHelper userHelper,
+                                 IConfiguration configuration)
         {
             this._userHelper = userHelper;
+            this._configuration = configuration;
         }
 
         public IActionResult Login()
@@ -177,6 +186,48 @@
             }
 
             return this.View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateToken([FromBody] LoginViewModel model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var user = await this._userHelper.GetUserByEmailAsync(model.Username);
+                if (user != null)
+                {
+                    var result = await this._userHelper.ValidatePasswordAsync(
+                        user,
+                        model.Password);
+
+                    if (result.Succeeded)
+                    {
+                        var claims = new[]
+                        {
+                    new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                };
+
+                        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this._configuration["Tokens:Key"]));
+                        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                        var token = new JwtSecurityToken(
+                            this._configuration["Tokens:Issuer"],
+                            this._configuration["Tokens:Audience"],
+                            claims,
+                            expires: DateTime.UtcNow.AddDays(15),
+                            signingCredentials: credentials);
+                        var results = new
+                        {
+                            token = new JwtSecurityTokenHandler().WriteToken(token),
+                            expiration = token.ValidTo
+                        };
+
+                        return this.Created(string.Empty, results);
+                    }
+                }
+            }
+
+            return this.BadRequest();
         }
 
     }

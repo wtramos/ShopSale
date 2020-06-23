@@ -1,9 +1,13 @@
 ﻿namespace ShopSale.WebSite.Controllers.API
 {
-    using Microsoft.AspNetCore.Mvc;
+	using Microsoft.AspNetCore.Authorization;
+	using Microsoft.AspNetCore.Authentication.JwtBearer;
+	using Microsoft.AspNetCore.Mvc;
     using Data.Interfaces;
+    
 
     [Route("api/[Controller]")]
+	[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 	public class ProductsController : Controller
 	{
 		private readonly IProductRepository _productRepository;

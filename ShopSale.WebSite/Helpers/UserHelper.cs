@@ -50,5 +50,14 @@
 		{
 			return await this._userManager.ChangePasswordAsync(user, oldPassword, newPassword);
 		}
+
+        public async Task<SignInResult> ValidatePasswordAsync(User user, string password)
+        {
+			return await this._signInManager.CheckPasswordSignInAsync(
+					user,
+					password,
+					false);
+
+		}
 	}
 }

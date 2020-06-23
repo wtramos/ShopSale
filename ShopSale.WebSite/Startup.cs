@@ -1,5 +1,7 @@
 ﻿namespace ShopSale.WebSite
 {
+    using System.Text;
+    using Microsoft.IdentityModel.Tokens;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -13,6 +15,7 @@
     using Helpers;
     using Data.Interfaces;
     using Data.Repositories;
+    
 
     public class Startup
     {
@@ -38,6 +41,19 @@
             })
             .AddEntityFrameworkStores<DataContext>();
 
+            //Authentication.
+            services.AddAuthentication()
+            .AddCookie()
+            .AddJwtBearer(cfg =>
+            {
+                cfg.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidIssuer = this.Configuration["Tokens:Issuer"],
+                    ValidAudience = this.Configuration["Tokens:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.Configuration["Tokens:Key"]))
+                };
+            });
+
 
             services.AddDbContext<DataContext>(cfg =>
             {
@@ -45,7 +61,6 @@
             });
 
             services.AddTransient<SeedDb>();
-            //services.AddScoped<IRepository, Repository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<IUserHelper, UserHelper>();
