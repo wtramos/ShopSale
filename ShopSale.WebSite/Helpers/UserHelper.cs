@@ -64,6 +64,26 @@
 
 		}
 
+		public async Task CheckRoleAsync(string roleName)
+		{
+			var roleExists = await this._roleManager.RoleExistsAsync(roleName);
+			if (!roleExists)
+			{
+				await this._roleManager.CreateAsync(new IdentityRole
+				{
+					Name = roleName
+				});
+			}
+		}
 
+		public async Task AddUserToRoleAsync(User user, string roleName)
+		{
+			await this._userManager.AddToRoleAsync(user, roleName);
+		}
+
+		public async Task<bool> IsUserInRoleAsync(User user, string roleName)
+		{
+			return await this._userManager.IsInRoleAsync(user, roleName);
+		}
 	}
 }
