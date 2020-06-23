@@ -19,11 +19,12 @@
             this._userHelper = userHelper;
             this._random = new Random();
         }
-
-
         public async Task SeedAsync()
         {
             await this._context.Database.EnsureCreatedAsync();
+
+            await this._userHelper.CheckRoleAsync("Admin");
+            await this._userHelper.CheckRoleAsync("Customer");
 
             var user = await this._userHelper.GetUserByEmailAsync("walter.torres.ramos@gmail.com");
             if (user == null)
@@ -42,8 +43,16 @@
                 {
                     throw new InvalidOperationException("Could not create the user in seeder");
                 }
+                await this._userHelper.AddUserToRoleAsync(user, "Admin");
             }
-       
+
+            var isInRole = await this._userHelper.IsUserInRoleAsync(user, "Admin");
+            if (!isInRole)
+            {
+                await this._userHelper.AddUserToRoleAsync(user, "Admin");
+            }
+
+
             if (!this._context.Products.Any())
             {
                 this.AddProduct("First Product", user);

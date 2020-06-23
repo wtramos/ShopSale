@@ -13,13 +13,13 @@
     using Data.Interfaces;
     using Models;
 
-    [Authorize]
     public class ProductsController : Controller
     {
         private readonly IProductRepository _productRepository;
         private readonly IUserHelper _userHelper;
 
-        public ProductsController(IProductRepository productRepository, IUserHelper userHelper)
+        public ProductsController(IProductRepository productRepository, 
+                                  IUserHelper userHelper)
         {
             this._productRepository = productRepository;
             this._userHelper = userHelper;
@@ -49,6 +49,7 @@
         }
 
         // GET: Products/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -89,6 +90,7 @@
         }
 
         // GET: Products/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -154,6 +156,7 @@
         }
 
         // GET: Products/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

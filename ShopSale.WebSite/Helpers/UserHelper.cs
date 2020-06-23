@@ -9,11 +9,15 @@
 	{
 		private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public UserHelper(UserManager<User> userManager, SignInManager<User> signInManager)
+        public UserHelper(UserManager<User> userManager, 
+			              SignInManager<User> signInManager,
+						  RoleManager<IdentityRole> roleManager)
 		{
 			this._userManager = userManager;
             this._signInManager = signInManager;
+            this._roleManager = roleManager;
         }
 
 		public async Task<IdentityResult> AddUserAsync(User user, string password)
@@ -59,5 +63,7 @@
 					false);
 
 		}
+
+
 	}
 }
