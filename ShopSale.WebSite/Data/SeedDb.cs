@@ -3,10 +3,11 @@
     using System;
     using System.Linq;
     using System.Threading.Tasks;
+    using System.Collections.Generic;
     using Microsoft.AspNetCore.Identity;
     using Entities;
     using Helpers;
-
+    
     public class SeedDb
     {
         private readonly DataContext _context;
@@ -26,6 +27,23 @@
             await this._userHelper.CheckRoleAsync("Admin");
             await this._userHelper.CheckRoleAsync("Customer");
 
+            if (!this._context.Countries.Any())
+            {
+                var cities = new List<City>();
+                cities.Add(new City { Name = "Lima" });
+                cities.Add(new City { Name = "Ica" });
+                cities.Add(new City { Name = "Huancayo" });
+                cities.Add(new City { Name = "Piura" });
+
+                this._context.Countries.Add(new Country
+                {
+                    Cities = cities,
+                    Name = "Perú"
+                });
+
+                await this._context.SaveChangesAsync();
+            }
+
             var user = await this._userHelper.GetUserByEmailAsync("walter.torres.ramos@gmail.com");
             if (user == null)
             {
@@ -35,7 +53,11 @@
                     LastName = "Torres",
                     Email = "walter.torres.ramos@gmail.com",
                     UserName = "walter.torres.ramos@gmail.com",
-                    PhoneNumber = "938252115"
+                    PhoneNumber = "938252115",
+                    Address = "Calle Santa Carmela 118 - Surco",
+                    CityId = this._context.Countries.FirstOrDefault().Cities.FirstOrDefault().Id,
+                    City = this._context.Countries.FirstOrDefault().Cities.FirstOrDefault()
+
                 };
 
                 var result = await this._userHelper.AddUserAsync(user, "123456");

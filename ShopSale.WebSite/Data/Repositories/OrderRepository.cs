@@ -163,5 +163,23 @@
             return true;
         }
 
+        public async Task DeliverOrder(DeliverViewModel model)
+        {
+            var order = await this._context.Orders.FindAsync(model.Id);
+            if (order == null)
+            {
+                return;
+            }
+
+            order.DeliveryDate = model.DeliveryDate;
+            this._context.Orders.Update(order);
+            await this._context.SaveChangesAsync();
+        }
+
+        public async Task<Order> GetOrdersAsync(int id)
+        {
+            return await this._context.Orders.FindAsync(id);
+        }
+
     }
 }
