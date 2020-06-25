@@ -10,10 +10,12 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.Configuration;
     using Microsoft.IdentityModel.Tokens;
+    using Microsoft.AspNetCore.Authorization;
     using Helpers;
     using Models;
     using Data.Entities;
     using Data.Interfaces;
+    
 
     public class AccountController : Controller
     {
@@ -364,6 +366,76 @@
 
             this.ViewBag.Message = "User not found.";
             return View(model);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Index()
+        {
+            var users = await this._userHelper.GetAllUsersAsync();
+            foreach (var user in users)
+            {
+                var myUser = await this._userHelper.GetUserByIdAsync(user.Id);
+                if (myUser != null)
+                {
+                    user.IsAdmin = await this._userHelper.IsUserInRoleAsync(myUser, "Admin");
+                }
+            }
+
+            return this.View(users);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AdminOff(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            var user = await this._userHelper.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            await this._userHelper.RemoveUserFromRoleAsync(user, "Admin");
+            return this.RedirectToAction(nameof(Index));
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AdminOn(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            var user = await this._userHelper.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            await this._userHelper.AddUserToRoleAsync(user, "Admin");
+            return this.RedirectToAction(nameof(Index));
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            var user = await this._userHelper.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            await this._userHelper.DeleteUserAsync(user);
+            return this.RedirectToAction(nameof(Index));
         }
 
         #endregion

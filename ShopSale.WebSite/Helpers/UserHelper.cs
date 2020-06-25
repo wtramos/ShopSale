@@ -1,9 +1,13 @@
 ﻿namespace ShopSale.WebSite.Helpers
 {
-	using System.Threading.Tasks;
-	using Data.Entities;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+	using System.Linq;
 	using Microsoft.AspNetCore.Identity;
-    using ShopSale.WebSite.Models;
+	using Microsoft.EntityFrameworkCore;
+	using Data.Entities;
+    using Models;
+    
 
     public class UserHelper : IUserHelper
 	{
@@ -110,5 +114,25 @@
 		{
 			return await this._userManager.ResetPasswordAsync(user, token, password);
 		}
+
+		public async Task<List<User>> GetAllUsersAsync()
+		{
+			return await this._userManager.Users
+				.Include(u => u.City)
+				.OrderBy(u => u.FirstName)
+				.ThenBy(u => u.LastName)
+				.ToListAsync();
+		}
+
+		public async Task RemoveUserFromRoleAsync(User user, string roleName)
+		{
+			await this._userManager.RemoveFromRoleAsync(user, roleName);
+		}
+
+		public async Task DeleteUserAsync(User user)
+		{
+			await this._userManager.DeleteAsync(user);
+		}
+
 	}
 }
