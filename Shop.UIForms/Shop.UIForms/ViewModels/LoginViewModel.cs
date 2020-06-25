@@ -2,16 +2,42 @@
 {
     using System.Windows.Input;
     using GalaSoft.MvvmLight.Command;
-    using Shop.UIForms.Views;
     using Xamarin.Forms;
+    using Shop.UIForms.Views;
+    using ShopSale.Common.Services;
+    using ShopSale.Common.Models;
 
-    public class LoginViewModel
+    public class LoginViewModel : BaseViewModel
     {
+        private bool isRunning;
+        private bool isEnabled;
+        private readonly ApiService _apiService;
+
+        public bool IsRunning
+        {
+            get => this.isRunning;
+            set => this.SetValue(ref this.isRunning, value);
+        }
+
+        public bool IsEnabled
+        {
+            get => this.isEnabled;
+            set => this.SetValue(ref this.isEnabled, value);
+        }
+
         public string Email { get; set; }
 
         public string Password { get; set; }
 
         public ICommand LoginCommand => new RelayCommand(this.Login);
+
+        public LoginViewModel()
+        {
+            this._apiService = new ApiService();
+            this.IsEnabled = true;
+            this.Email = "walter.torres.ramos@gmail.com";
+            this.Password = "123456";
+        }
 
         private async void Login()
         {
@@ -41,17 +67,36 @@
                 return;
             }
 
-            MainViewModel.GetInstance().Products = new ProductsViewModel();
+            this.IsRunning = true;
+            this.IsEnabled = false;
+
+            var request = new TokenRequest
+            {
+                Password = this.Password,
+                Username = this.Email
+            };
+
+            var url = Application.Current.Resources["UrlAPI"].ToString();
+            var response = await this._apiService.GetTokenAsync(
+                url,
+                "/Account",
+                "/CreateToken",
+                request);
+
+            this.IsRunning = false;
+            this.IsEnabled = true;
+
+            if (!response.IsSuccess)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Email or password incorrect.", "Accept");
+                return;
+            }
+
+            var token = (TokenResponse)response.Result;
+            var mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.Token = token;
+            mainViewModel.Products = new ProductsViewModel();
             await Application.Current.MainPage.Navigation.PushAsync(new ProductsPage());
-
-
-            /*await Application.Current.MainPage.DisplayAlert(
-                "Ok", 
-                "Fuck yeah!!!", 
-                "Accept");*/
-
-            await Application.Current.MainPage.Navigation.PushAsync(
-                new ProductsPage());
         }
     }
 }

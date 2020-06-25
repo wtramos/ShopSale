@@ -35,10 +35,13 @@
         {
             this.IsRefreshing = true;
 
+            var url = Application.Current.Resources["UrlAPI"].ToString();
             var response = await this._apiService.GetListAsync<Product>(
-                "https://shopsalewebsite.azurewebsites.net",
+                url,
                 "/api",
-                "/Products");
+                "/Products",
+                "bearer",
+                MainViewModel.GetInstance().Token.Token);
 
             this.IsRefreshing = false;
 
