@@ -2,8 +2,9 @@
 {
     using System.Windows.Input;
     using GalaSoft.MvvmLight.Command;
-    using Views;
     using Xamarin.Forms;
+    using Common.Helpers;
+    using UIForms.Views;
 
     public class MenuItemViewModel : ShopSale.Common.Models.Menu
     {
@@ -23,11 +24,15 @@
                     await App.Navigator.PushAsync(new SetupPage());
                     break;
                 default:
+                    Settings.IsRemember = false;
+                    Settings.Token = string.Empty;
+                    Settings.UserEmail = string.Empty;
+                    Settings.UserPassword = string.Empty;
+
                     MainViewModel.GetInstance().Login = new LoginViewModel();
                     Application.Current.MainPage = new NavigationPage(new LoginPage());
                     break;
             }
         }
     }
-
 }

@@ -3,15 +3,18 @@
     using System.Windows.Input;
     using GalaSoft.MvvmLight.Command;
     using Xamarin.Forms;
-    using ShopSale.UIForms.Views;
-    using ShopSale.Common.Services;
-    using ShopSale.Common.Models;
+    using UIForms.Views;
+    using Common.Services;
+    using Common.Models;
+    using Common.Helpers;
+    using Newtonsoft.Json;
 
     public class LoginViewModel : BaseViewModel
     {
         private bool isRunning;
         private bool isEnabled;
         private readonly ApiService _apiService;
+        public bool IsRemember { get; set; }
 
         public bool IsRunning
         {
@@ -35,8 +38,7 @@
         {
             this._apiService = new ApiService();
             this.IsEnabled = true;
-            this.Email = "walter.torres.ramos@gmail.com";
-            this.Password = "123456";
+            this.IsRemember = true;
         }
 
         private async void Login()
@@ -54,15 +56,6 @@
                 await Application.Current.MainPage.DisplayAlert(
                     "Error", 
                     "You must enter a password", 
-                    "Accept");
-                return;
-            }
-
-            if (!this.Email.Equals("walter.torres.ramos@gmail.com") || !this.Password.Equals("123456"))
-            {
-                await Application.Current.MainPage.DisplayAlert(
-                    "Error", 
-                    "Incorrect user or password", 
                     "Accept");
                 return;
             }
@@ -95,9 +88,14 @@
             var token = (TokenResponse)response.Result;
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.Token = token;
-            mainViewModel.Products = new ProductsViewModel();
             mainViewModel.UserEmail = this.Email;
-            mainViewModel.UserPassword = this.Password;
+            mainViewModel.Products = new ProductsViewModel();
+
+            Settings.IsRemember = this.IsRemember;
+            Settings.UserEmail = this.Email;
+            Settings.UserPassword = this.Password;
+            Settings.Token = JsonConvert.SerializeObject(token);
+
             Application.Current.MainPage = new MasterPage();
         }
     }
