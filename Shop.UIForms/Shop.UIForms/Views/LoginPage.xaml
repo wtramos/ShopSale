@@ -12,6 +12,10 @@
             BindingContext="{Binding Login}">
             <StackLayout
                 Padding="5">
+                <Image
+                	HeightRequest="150"
+                	Source="shopsale">
+                </Image>
                 <Label
                     Text="Email">
                 </Label>
@@ -29,12 +33,18 @@
                     Text="{Binding Password}">
                 </Entry>
                 <ActivityIndicator
-                	IsRunning="{Binding IsRunning}">
+                	IsRunning="{Binding IsRunning}"
+                    VerticalOptions="CenterAndExpand">
                 </ActivityIndicator>
                 <Button
-                    Command="{Binding LoginCommand}"
-                    IsEnabled="{Binding IsEnabled}"
-                    Text="Login"></Button>
+                	BackgroundColor="Navy"
+                	BorderRadius="23"
+                	Command="{Binding LoginCommand}"
+                	HeightRequest="46"
+                	IsEnabled="{Binding IsEnabled}"
+                	Text="Login"
+                	TextColor="White">
+                </Button>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
