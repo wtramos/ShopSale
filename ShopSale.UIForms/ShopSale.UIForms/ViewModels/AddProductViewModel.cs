@@ -4,9 +4,10 @@
     using GalaSoft.MvvmLight.Command;
     using Xamarin.Forms;
     using Plugin.Media.Abstractions;
+    using Plugin.Media;
     using Common.Models;
     using Common.Services;
-    using Plugin.Media;
+    using Common.Helpers;
 
     public class AddProductViewModel : BaseViewModel
     {
@@ -76,14 +77,19 @@
             this.IsRunning = true;
             this.IsEnabled = false;
 
-            //TODO: Add image
+            byte[] imageArray = null;
+            if (this.file != null)
+            {
+                imageArray = FilesHelper.ReadFully(this.file.GetStream());
+            }
+
             var product = new Product
             {
                 IsAvailabe = true,
                 Name = this.Name,
                 Price = price,
-                User = new User { UserName = MainViewModel.GetInstance().UserEmail, 
-                                  Email = MainViewModel.GetInstance().UserEmail }
+                User = new User { UserName = MainViewModel.GetInstance().UserEmail },
+                ImageArray = imageArray
             };
 
             var url = Application.Current.Resources["UrlAPI"].ToString();
