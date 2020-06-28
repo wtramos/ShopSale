@@ -150,4 +150,43 @@
   <data name="PasswordPlaceHolder" xml:space="preserve">
     <value>Enter your password.</value>
   </data>
+  <data name="RegisterNewUser" xml:space="preserve">
+    <value>New User</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="FirstNamePlaceHolder" xml:space="preserve">
+    <value>Enter your first name.</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="LastNamePlaceHolder" xml:space="preserve">
+    <value>Enter your last name.</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Select a country.</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Select a city.</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="AddressPlaceHolder" xml:space="preserve">
+    <value>Enter your address.</value>
+  </data>
+  <data name="Telephone" xml:space="preserve">
+    <value>Telephone</value>
+  </data>
+  <data name="TelephonePlaceHolder" xml:space="preserve">
+    <value>Enter your phone number.</value>
+  </data>
+  <data name="PasswordConfirm" xml:space="preserve">
+    <value>Password confirm</value>
+  </data>
+  <data name="PasswordConfirmPlaceHolder" xml:space="preserve">
+    <value>Enter your password confirm.</value>
+  </data>
 </root>

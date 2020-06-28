@@ -77,5 +77,6 @@
             await App.Navigator.PushAsync(new AddProductPage());
         }
 
+        public RegisterViewModel Register { get; set; }
     }
 }

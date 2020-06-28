@@ -150,4 +150,43 @@
   <data name="PasswordPlaceHolder" xml:space="preserve">
     <value>Insira sua senha</value>
   </data>
+  <data name="RegisterNewUser" xml:space="preserve">
+    <value>Novo Usuário</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="FirstNamePlaceHolder" xml:space="preserve">
+    <value>Insira seu nome</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Sobrenome</value>
+  </data>
+  <data name="LastNamePlaceHolder" xml:space="preserve">
+    <value>Insira seu sobrenome</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Selecionar um país...</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Selecionar cidade</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Endereço</value>
+  </data>
+  <data name="AddressPlaceHolder" xml:space="preserve">
+    <value>Digite seu endereço.</value>
+  </data>
+  <data name="Telephone" xml:space="preserve">
+    <value>Telefone</value>
+  </data>
+  <data name="TelephonePlaceHolder" xml:space="preserve">
+    <value>Insira o seu número de telefone</value>
+  </data>
+  <data name="PasswordConfirm" xml:space="preserve">
+    <value>Confirmar palavra-passe</value>
+  </data>
+  <data name="PasswordConfirmPlaceHolder" xml:space="preserve">
+    <value>Digite sua senha para confirmar</value>
+  </data>
 </root>

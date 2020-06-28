@@ -35,5 +35,19 @@
 
 		public static string PasswordPlaceHolder => Resource.PasswordPlaceHolder;
 
+		public static string RegisterNewUser => Resource.RegisterNewUser;
+
+		public static string FirstName => Resource.FirstName;
+		public static string FirstNamePlaceHolder => Resource.FirstNamePlaceHolder;
+		public static string LastName => Resource.LastName;
+		public static string LastNamePlaceHolder => Resource.LastNamePlaceHolder;
+		public static string Country => Resource.Country;
+		public static string City => Resource.City;
+		public static string Address => Resource.Address;
+		public static string AddressPlaceHolder => Resource.AddressPlaceHolder;
+		public static string TelephonePlaceHolder => Resource.TelephonePlaceHolder;
+		public static string Telephone => Resource.Telephone;
+		public static string PasswordConfirm => Resource.PasswordConfirm;
+		public static string PasswordConfirmPlaceHolder => Resource.PasswordConfirmPlaceHolder;
 	}
 }

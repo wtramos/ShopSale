@@ -150,4 +150,43 @@
   <data name="PasswordPlaceHolder" xml:space="preserve">
     <value>Escriba la contraseña</value>
   </data>
+  <data name="RegisterNewUser" xml:space="preserve">
+    <value>Nuevo usuario</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="FirstNamePlaceHolder" xml:space="preserve">
+    <value>Escribir nombre</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Apellidos</value>
+  </data>
+  <data name="LastNamePlaceHolder" xml:space="preserve">
+    <value>Escribir apellidos</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Seleccionar un país</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Seleccionar una ciudad</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Dirección</value>
+  </data>
+  <data name="AddressPlaceHolder" xml:space="preserve">
+    <value>Introduzca su dirección.</value>
+  </data>
+  <data name="Telephone" xml:space="preserve">
+    <value>Teléfono</value>
+  </data>
+  <data name="TelephonePlaceHolder" xml:space="preserve">
+    <value>Escribir el número de teléfono</value>
+  </data>
+  <data name="PasswordConfirm" xml:space="preserve">
+    <value>Confirmar contraseña</value>
+  </data>
+  <data name="PasswordConfirmPlaceHolder" xml:space="preserve">
+    <value>Introduzca su contraseña.</value>
+  </data>
 </root>
