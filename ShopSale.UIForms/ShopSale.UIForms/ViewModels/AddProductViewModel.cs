@@ -3,14 +3,18 @@
     using System.Windows.Input;
     using GalaSoft.MvvmLight.Command;
     using Xamarin.Forms;
-    using ShopSale.Common.Models;
-    using ShopSale.Common.Services;
+    using Plugin.Media.Abstractions;
+    using Common.Models;
+    using Common.Services;
+    using Plugin.Media;
 
     public class AddProductViewModel : BaseViewModel
     {
         private bool isRunning;
         private bool isEnabled;
         private readonly ApiService _apiService;
+        private ImageSource imageSource;
+        private MediaFile file;
 
         public string Image { get; set; }
 
@@ -26,16 +30,25 @@
             set => this.SetValue(ref this.isEnabled, value);
         }
 
+        public ImageSource ImageSource
+        {
+            get => this.imageSource;
+            set => this.SetValue(ref this.imageSource, value);
+        }
+
+
         public string Name { get; set; }
 
         public string Price { get; set; }
 
         public ICommand SaveCommand => new RelayCommand(this.Save);
 
+        public ICommand ChangeImageCommand => new RelayCommand(this.ChangeImage);
+
         public AddProductViewModel()
         {
             this._apiService = new ApiService();
-            this.Image = "noimage";
+            this.ImageSource = "noImage";
             this.IsEnabled = true;
         }
 
@@ -95,5 +108,49 @@
             this.IsEnabled = true;
             await App.Navigator.PopAsync();
         }
+
+        private async void ChangeImage()
+        {
+            await CrossMedia.Current.Initialize();
+
+            var source = await Application.Current.MainPage.DisplayActionSheet(
+                "Where do you take the picture?",
+                "Cancel",
+                null,
+                "From Gallery",
+                "From Camera");
+
+            if (source == "Cancel")
+            {
+                this.file = null;
+                return;
+            }
+
+            if (source == "From Camera")
+            {
+                this.file = await CrossMedia.Current.TakePhotoAsync(
+                    new StoreCameraMediaOptions
+                    {
+                        Directory = "Pictures",
+                        Name = "test.jpg",
+                        PhotoSize = PhotoSize.Small,
+                    }
+                );
+            }
+            else
+            {
+                this.file = await CrossMedia.Current.PickPhotoAsync();
+            }
+
+            if (this.file != null)
+            {
+                this.ImageSource = ImageSource.FromStream(() =>
+                {
+                    var stream = file.GetStream();
+                    return stream;
+                });
+            }
+        }
+
     }
 }
