@@ -8,6 +8,7 @@
     using Common.Models;
     using Common.Helpers;
     using Newtonsoft.Json;
+    using ShopSale.UIForms.Helpers;
 
     public class LoginViewModel : BaseViewModel
     {
@@ -45,18 +46,16 @@
         {
             if (string.IsNullOrEmpty(this.Email))
             {
-                await Application.Current.MainPage.DisplayAlert(
-                    "Error", 
-                    "You must enter an email", 
-                    "Accept");
+                await Application.Current.MainPage.DisplayAlert(Languages.Error, 
+                    Languages.EmailError, 
+                    Languages.Accept);
                 return;
             }
             if (string.IsNullOrEmpty(this.Password))
             {
-                await Application.Current.MainPage.DisplayAlert(
-                    "Error", 
-                    "You must enter a password", 
-                    "Accept");
+                await Application.Current.MainPage.DisplayAlert(Languages.Error, 
+                    Languages.PasswordError, 
+                    Languages.Accept);
                 return;
             }
 
@@ -81,7 +80,9 @@
 
             if (!response.IsSuccess)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Email or password incorrect.", "Accept");
+                await Application.Current.MainPage.DisplayAlert(Languages.Error,
+                    Languages.LoginIncorrect,
+                    Languages.Accept);
                 return;
             }
 
