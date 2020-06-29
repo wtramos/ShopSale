@@ -88,7 +88,7 @@ namespace ShopSale.UIForms.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select a city..
+        ///   Looks up a localized string similar to City.
         /// </summary>
         public static string City {
             get {
@@ -97,11 +97,29 @@ namespace ShopSale.UIForms.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select a country..
+        ///   Looks up a localized string similar to Select a city..
+        /// </summary>
+        public static string CityPlaceHolder {
+            get {
+                return ResourceManager.GetString("CityPlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country.
         /// </summary>
         public static string Country {
             get {
                 return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a country..
+        /// </summary>
+        public static string CountryPlaceHolder {
+            get {
+                return ResourceManager.GetString("CountryPlaceHolder", resourceCulture);
             }
         }
         
@@ -205,6 +223,24 @@ namespace ShopSale.UIForms.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modify Password.
+        /// </summary>
+        public static string ModifyPassword {
+            get {
+                return ResourceManager.GetString("ModifyPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modify User.
+        /// </summary>
+        public static string ModifyUser {
+            get {
+                return ResourceManager.GetString("ModifyUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Password {
@@ -282,6 +318,15 @@ namespace ShopSale.UIForms.Resources {
         public static string Remember {
             get {
                 return ResourceManager.GetString("Remember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
             }
         }
         

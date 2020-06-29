@@ -47,13 +47,28 @@
 		public static string Address => Resource.Address;
 		public static string AddressPlaceHolder => Resource.AddressPlaceHolder;
 		public static string TelephonePlaceHolder => Resource.TelephonePlaceHolder;
+
 		public static string Telephone => Resource.Telephone;
+
 		public static string PasswordConfirm => Resource.PasswordConfirm;
+
 		public static string PasswordConfirmPlaceHolder => Resource.PasswordConfirmPlaceHolder;
 
 		public static string ForgotPassword => Resource.ForgotPassword;
+
 		public static string RecoverPassword => Resource.RecoverPassword;
+
 		public static string RecoverEmailPlaceHolder => Resource.RecoverEmailPlaceHolder;
+
+		public static string CountryPlaceHolder => Resource.CountryPlaceHolder;
+
+		public static string CityPlaceHolder => Resource.CityPlaceHolder;
+
+		public static string ModifyUser => Resource.ModifyUser;
+
+		public static string ModifyPassword => Resource.ModifyPassword;
+
+		public static string Save => Resource.Save;
 
 	}
 }

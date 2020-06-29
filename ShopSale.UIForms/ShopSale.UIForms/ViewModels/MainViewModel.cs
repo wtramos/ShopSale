@@ -8,14 +8,21 @@
     using UIForms.Views;
     using Common.Models;
     
-    public class MainViewModel
+    public class MainViewModel : BaseViewModel
     {
         private static MainViewModel _instance;
+        private User user;
+  
         public TokenResponse Token { get; set; }
+
         public LoginViewModel Login { get; set; }
+
         public ProductsViewModel Products { get; set; }
+
         public ObservableCollection<MenuItemViewModel> Menus { get; set; }
+
         public string UserEmail { get; set; }
+
         public string UserPassword { get; set; }
 
         public MainViewModel()
@@ -23,6 +30,7 @@
             _instance = this;
             this.LoadMenus();
         }
+
         public static MainViewModel GetInstance()
         {
             if (_instance == null)
@@ -31,6 +39,7 @@
             }
             return _instance;
         }
+
         private void LoadMenus()
         {
             var menus = new List<Menu>
@@ -41,7 +50,12 @@
                     PageName = "AboutPage",
                     Title = "About"
                 },
-
+                new Menu
+                {
+                    Icon = "ic_person",
+                    PageName = "ProfilePage",
+                    Title = "Modify User"
+                },
                 new Menu
                 {
                     Icon = "ic_phonelink_setup",
@@ -80,5 +94,13 @@
         public RegisterViewModel Register { get; set; }
 
         public RememberPasswordViewModel RememberPassword { get; set; }
+
+        public User User
+        {
+            get => this.user;
+            set => this.SetValue(ref this.user, value);
+        }
+
+        public ProfileViewModel Profile { get; set; }
     }
 }

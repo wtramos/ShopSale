@@ -4,9 +4,12 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Common.Models;
     using Data.Interfaces;
     using Helpers;
+    
 
     [Route("api/[Controller]")]
     public class AccountController : Controller
@@ -93,6 +96,42 @@
             });
         }
 
+        [HttpPut]
+        public async Task<IActionResult> PutUser([FromBody] User user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
+
+            var userEntity = await this._userHelper.GetUserByEmailAsync(user.Email);
+            if (userEntity == null)
+            {
+                return this.BadRequest("User not found.");
+            }
+
+            var city = await this._countryRepository.GetCityAsync(user.CityId);
+            if (city != null)
+            {
+                userEntity.City = city;
+            }
+
+            userEntity.FirstName = user.FirstName;
+            userEntity.LastName = user.LastName;
+            userEntity.CityId = user.CityId;
+            userEntity.Address = user.Address;
+            userEntity.PhoneNumber = user.PhoneNumber;
+
+            var respose = await this._userHelper.UpdateUserAsync(userEntity);
+            if (!respose.Succeeded)
+            {
+                return this.BadRequest(respose.Errors.FirstOrDefault().Description);
+            }
+
+            var updatedUser = await this._userHelper.GetUserByEmailAsync(user.Email);
+            return Ok(updatedUser);
+        }
+
         [HttpPost]
         [Route("RecoverPassword")]
         public async Task<IActionResult> RetrivePassword([FromBody] RecoverPasswordRequest request)
@@ -132,5 +171,33 @@
                 Message = "An email with instructions to change the password was sent."
             });
         }
+
+        [HttpPost]
+        [Route("GetUserByEmail")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> GetUserByEmail([FromBody] RecoverPasswordRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Bad request"
+                });
+            }
+
+            var user = await this._userHelper.GetUserByEmailAsync(request.Email);
+            if (user == null)
+            {
+                return this.BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "User don't exists."
+                });
+            }
+
+            return Ok(user);
+        }
+
     }
 }

@@ -165,10 +165,10 @@
   <data name="LastNamePlaceHolder" xml:space="preserve">
     <value>Immetti il tuo cognome</value>
   </data>
-  <data name="Country" xml:space="preserve">
+  <data name="CountryPlaceHolder" xml:space="preserve">
     <value>Selezionare un paese</value>
   </data>
-  <data name="City" xml:space="preserve">
+  <data name="CityPlaceHolder" xml:space="preserve">
     <value>Selezionare una città</value>
   </data>
   <data name="Address" xml:space="preserve">
@@ -197,5 +197,20 @@
   </data>
   <data name="RecoverEmailPlaceHolder" xml:space="preserve">
     <value>Inserire Email valida per ricevere la Password.</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Città</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Paese</value>
+  </data>
+  <data name="ModifyUser" xml:space="preserve">
+    <value>Modifica utente</value>
+  </data>
+  <data name="ModifyPassword" xml:space="preserve">
+    <value>Modifica password</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Salva</value>
   </data>
 </root>

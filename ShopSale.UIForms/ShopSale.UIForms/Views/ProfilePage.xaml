@@ -2,12 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
          	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:i18n="clr-namespace:ShopSale.UIForms.Helpers"
-         	x:Class="ShopSale.UIForms.Views.RegisterPage"
+         	x:Class="ShopSale.UIForms.Views.ProfilePage"
          	BindingContext="{Binding Main, Source={StaticResource Locator}}"
-         	Title="{i18n:Translate RegisterNewUser}">
+         	Title="{i18n:Translate ModifyUser}">
     <ContentPage.Content>
         <ScrollView
-        	BindingContext="{Binding Register}">
+        	BindingContext="{Binding Profile}">
             <StackLayout
             	Padding="8">
                 <Grid>
@@ -25,7 +25,7 @@
                     	Grid.Column="1"
                     	Grid.Row="0"
                     	Placeholder="{i18n:Translate FirstNamePlaceHolder}"
-                    	Text="{Binding FirstName}">
+                    	Text="{Binding User.FirstName}">
                     </Entry>
                     <Label
                     	Grid.Column="0"
@@ -37,30 +37,17 @@
                     	Grid.Column="1"
                     	Grid.Row="1"
                     	Placeholder="{i18n:Translate LastNamePlaceHolder}"
-                    	Text="{Binding LastName}">
+                    	Text="{Binding User.LastName}">
                     </Entry>
                     <Label
                     	Grid.Column="0"
                     	Grid.Row="2"
-                    	Text="{i18n:Translate Email}"
-                    	VerticalOptions="Center">
-                    </Label>
-                    <Entry
-                    	Grid.Column="1"
-                    	Grid.Row="2"
-                    	Keyboard="Email"
-                    	Placeholder="{i18n:Translate EmailPlaceHolder}"
-                    	Text="{Binding Email}">
-                    </Entry>
-                    <Label
-                    	Grid.Column="0"
-                    	Grid.Row="3"
                     	Text="{i18n:Translate Country}"
                     	VerticalOptions="Center">
                     </Label>
                     <Picker
                     	Grid.Column="1"
-                    	Grid.Row="3"
+                    	Grid.Row="2"
                     	ItemDisplayBinding="{Binding Name}"
                     	ItemsSource="{Binding Countries}"
                     	SelectedItem="{Binding Country}"
@@ -68,13 +55,13 @@
                     </Picker>
                     <Label
                     	Grid.Column="0"
-                    	Grid.Row="4"
+                    	Grid.Row="3"
                     	Text="{i18n:Translate City}"
                     	VerticalOptions="Center">
                     </Label>
                     <Picker
                     	Grid.Column="1"
-                    	Grid.Row="4"
+                    	Grid.Row="3"
                     	ItemDisplayBinding="{Binding Name}"
                     	ItemsSource="{Binding Cities}"
                     	SelectedItem="{Binding City}"
@@ -82,70 +69,57 @@
                     </Picker>
                     <Label
                     	Grid.Column="0"
-                    	Grid.Row="5"
+                    	Grid.Row="4"
                     	Text="{i18n:Translate Address}"
                     	VerticalOptions="Center">
                     </Label>
                     <Entry
                     	Grid.Column="1"
-                    	Grid.Row="5"
+                    	Grid.Row="4"
                     	Placeholder="{i18n:Translate AddressPlaceHolder}"
-                    	Text="{Binding Address}">
+                    	Text="{Binding User.Address}">
                     </Entry>
                     <Label
                     	Grid.Column="0"
-                    	Grid.Row="6"
+                    	Grid.Row="5"
                     	Text="{i18n:Translate Telephone}"
                     	VerticalOptions="Center">
                     </Label>
                     <Entry
                     	Grid.Column="1"
-                    	Grid.Row="6"
+                    	Grid.Row="5"
                     	Keyboard="Telephone"
                     	Placeholder="{i18n:Translate TelephonePlaceHolder}"
-                    	Text="{Binding Phone}">
-                    </Entry>
-                    <Label
-                    	Grid.Column="0"
-                    	Grid.Row="7"
-                    	Text="{i18n:Translate Password}"
-                    	VerticalOptions="Center">
-                    </Label>
-                    <Entry
-                    	Grid.Column="1"
-                    	Grid.Row="7"
-                    	IsPassword="True"
-                    	Placeholder="{i18n:Translate PasswordPlaceHolder}"
-                    	Text="{Binding Password}">
-                    </Entry>
-                    <Label
-                    	Grid.Column="0"
-                    	Grid.Row="8"
-                    	Text="{i18n:Translate PasswordConfirm}"
-                    	VerticalOptions="Center">
-                    </Label>
-                    <Entry
-                    	Grid.Column="1"
-                    	Grid.Row="8"
-                    	IsPassword="True"
-                    	Placeholder="{i18n:Translate PasswordConfirmPlaceHolder}"
-                    	Text="{Binding Confirm}">
+                    	Text="{Binding User.PhoneNumber}">
                     </Entry>
                 </Grid>
                 <ActivityIndicator
                 	IsRunning="{Binding IsRunning}"
                 	VerticalOptions="CenterAndExpand">
                 </ActivityIndicator>
-                <Button
-                	BackgroundColor="Navy"
-                	BorderRadius="23"
-                	Command="{Binding RegisterCommand}"
-                	HeightRequest="46"
-                	HorizontalOptions="FillAndExpand"
-                	IsEnabled="{Binding IsEnabled}"
-                	Text="{i18n:Translate RegisterNewUser}"
-                	TextColor="White">
-                </Button>
+                <StackLayout
+                	Orientation="Horizontal">
+                    <Button
+                    	BackgroundColor="Navy"
+                    	BorderRadius="23"
+                    	Command="{Binding SaveCommand}"
+                    	HeightRequest="46"
+                    	HorizontalOptions="FillAndExpand"
+                    	IsEnabled="{Binding IsEnabled}"
+                    	Text="{i18n:Translate Save}"
+                    	TextColor="White">
+                    </Button>
+                    <Button
+                    	BackgroundColor="Purple"
+                    	BorderRadius="23"
+                    	Command="{Binding ModifyPasswordCommand}"
+                    	HeightRequest="46"
+                    	HorizontalOptions="FillAndExpand"
+                    	IsEnabled="{Binding IsEnabled}"
+                    	Text="{i18n:Translate ModifyPassword}"
+                    	TextColor="White">
+                    </Button>
+                </StackLayout>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
