@@ -3,8 +3,9 @@
 	using Interfaces;
 	using Resources;
 	using Xamarin.Forms;
+    using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
-	public static class Languages
+    public static class Languages
 	{
 		static Languages()
 		{
@@ -49,5 +50,10 @@
 		public static string Telephone => Resource.Telephone;
 		public static string PasswordConfirm => Resource.PasswordConfirm;
 		public static string PasswordConfirmPlaceHolder => Resource.PasswordConfirmPlaceHolder;
+
+		public static string ForgotPassword => Resource.ForgotPassword;
+		public static string RecoverPassword => Resource.RecoverPassword;
+		public static string RecoverEmailPlaceHolder => Resource.RecoverEmailPlaceHolder;
+
 	}
 }

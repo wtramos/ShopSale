@@ -189,4 +189,13 @@
   <data name="PasswordConfirmPlaceHolder" xml:space="preserve">
     <value>Introduzca su contraseña.</value>
   </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>He olvidado mi contraseña</value>
+  </data>
+  <data name="RecoverPassword" xml:space="preserve">
+    <value>Recuperar contraseña</value>
+  </data>
+  <data name="RecoverEmailPlaceHolder" xml:space="preserve">
+    <value>Ingrese el correo electrónico para recuperar la contraseña.</value>
+  </data>
 </root>

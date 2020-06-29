@@ -160,6 +160,15 @@ namespace ShopSale.UIForms.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Forgot my password.
+        /// </summary>
+        public static string ForgotPassword {
+            get {
+                return ResourceManager.GetString("ForgotPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last name.
         /// </summary>
         public static string LastName {
@@ -237,6 +246,24 @@ namespace ShopSale.UIForms.Resources {
         public static string PasswordPlaceHolder {
             get {
                 return ResourceManager.GetString("PasswordPlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter email to recover the password..
+        /// </summary>
+        public static string RecoverEmailPlaceHolder {
+            get {
+                return ResourceManager.GetString("RecoverEmailPlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recover password.
+        /// </summary>
+        public static string RecoverPassword {
+            get {
+                return ResourceManager.GetString("RecoverPassword", resourceCulture);
             }
         }
         

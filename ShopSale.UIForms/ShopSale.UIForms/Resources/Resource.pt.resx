@@ -189,4 +189,13 @@
   <data name="PasswordConfirmPlaceHolder" xml:space="preserve">
     <value>Digite sua senha para confirmar</value>
   </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Esqueci minha senha</value>
+  </data>
+  <data name="RecoverPassword" xml:space="preserve">
+    <value>Recuperar Senha</value>
+  </data>
+  <data name="RecoverEmailPlaceHolder" xml:space="preserve">
+    <value>Digite o email para recuperar a senha.!</value>
+  </data>
 </root>

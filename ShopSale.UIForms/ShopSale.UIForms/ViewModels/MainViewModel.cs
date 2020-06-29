@@ -78,5 +78,7 @@
         }
 
         public RegisterViewModel Register { get; set; }
+
+        public RememberPasswordViewModel RememberPassword { get; set; }
     }
 }

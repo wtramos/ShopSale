@@ -108,5 +108,12 @@
             await Application.Current.MainPage.Navigation.PushAsync(new RegisterPage());
         }
 
+        public ICommand RememberPasswordCommand => new RelayCommand(this.RememberPassword);
+        private async void RememberPassword()
+        {
+            MainViewModel.GetInstance().RememberPassword = new RememberPasswordViewModel();
+            await Application.Current.MainPage.Navigation.PushAsync(new RememberPasswordPage());
+        }
+
     }
 }
