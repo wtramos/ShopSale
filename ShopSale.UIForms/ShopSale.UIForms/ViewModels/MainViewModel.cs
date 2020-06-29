@@ -102,5 +102,7 @@
         }
 
         public ProfileViewModel Profile { get; set; }
+
+        public ChangePasswordViewModel ChangePassword { get; set; }
     }
 }

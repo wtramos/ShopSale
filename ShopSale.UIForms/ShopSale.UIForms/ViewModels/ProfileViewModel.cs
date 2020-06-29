@@ -10,6 +10,7 @@
     using Common.Models;
     using Common.Services;
     using Common.Helpers;
+    using UIForms.Views;
 
     public class ProfileViewModel : BaseViewModel
     {
@@ -221,6 +222,14 @@
                 "User updated!",
                 "Accept");
             await App.Navigator.PopAsync();
+        }
+
+        public ICommand ModifyPasswordCommand => new RelayCommand(this.ModifyPassword);
+
+        private async void ModifyPassword()
+        {
+            MainViewModel.GetInstance().ChangePassword = new ChangePasswordViewModel();
+            await App.Navigator.PushAsync(new ChangePasswordPage());
         }
 
     }
