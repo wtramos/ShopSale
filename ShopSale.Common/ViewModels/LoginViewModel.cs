@@ -105,13 +105,23 @@
                 return;
             }
 
-            this.IsLoading = false;
             var token = (TokenResponse)response.Result;
+
+            var response2 = await this.apiService.GetUserByEmailAsync(
+            "https://shopsalewebsite.azurewebsites.net",
+            "/api",
+            "/Account/GetUserByEmail",
+            this.Email,
+            "bearer",
+            token.Token);
+
+            var user = (User)response2.Result;
+            Settings.UserPassword = this.Password;
+            Settings.User = JsonConvert.SerializeObject(user);
             Settings.UserEmail = this.Email;
             Settings.Token = JsonConvert.SerializeObject(token);
-            this.IsLoading = false;
 
-            //this.dialogService.Alert("Ok", "Fuck yeah!", "Accept");
+            this.IsLoading = false;
             await this.navigationService.Navigate<ProductsViewModel>();
         }
 

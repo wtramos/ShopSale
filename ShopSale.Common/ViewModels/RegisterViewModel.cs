@@ -8,6 +8,7 @@
     using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
     using Services;
+    using ShopSale.Common.Helpers;
 
     public class RegisterViewModel : MvxViewModel
     {
@@ -26,6 +27,8 @@
         private string phone;
         private string password;
         private string confirmPassword;
+        private bool isLoading;
+              
 
         public RegisterViewModel(
             IMvxNavigationService navigationService,
@@ -36,6 +39,7 @@
             this.navigationService = navigationService;
             this.dialogService = dialogService;
             this.LoadCountries();
+            this.isLoading = false;
         }
 
         public ICommand RegisterCommand
@@ -122,8 +126,16 @@
             }
         }
 
+        public bool IsLoading
+        {
+            get => this.isLoading;
+            set => this.SetProperty(ref this.isLoading, value);
+        }
+
         private async void LoadCountries()
         {
+            this.isLoading = true;
+
             var response = await this.apiService.GetListAsync<Country>(
                 "https://shopsalewebsite.azurewebsites.net",
                 "/api",
@@ -136,10 +148,73 @@
             }
 
             this.Countries = (List<Country>)response.Result;
+            this.isLoading = false;
         }
 
         private async void RegisterUser()
         {
+            if (string.IsNullOrEmpty(this.FirstName))
+            {
+                this.dialogService.Alert("Error", "You must enter a first name.", "Accept");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(this.LastName))
+            {
+                this.dialogService.Alert("Error", "You must enter a last name.", "Accept");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(this.Email))
+            {
+                this.dialogService.Alert("Error", "You must enter an email.", "Accept");
+                return;
+            }
+
+            if (!RegexHelper.IsValidEmail(this.Email))
+            {
+                this.dialogService.Alert("Error", "You must enter a valid email.", "Accept");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(this.Address))
+            {
+                this.dialogService.Alert("Error", "You must enter an address.", "Accept");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(this.Phone))
+            {
+                this.dialogService.Alert("Error", "You must enter a phone.", "Accept");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(this.Password))
+            {
+                this.dialogService.Alert("Error", "You must enter a pasword.", "Accept");
+                return;
+            }
+
+            if (this.Password.Length < 6)
+            {
+                this.dialogService.Alert("Error", "The password must be a least 6 characters.", "Accept");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(this.ConfirmPassword))
+            {
+                this.dialogService.Alert("Error", "You must enter a pasword confirm.", "Accept");
+                return;
+            }
+
+            if (!this.Password.Equals(this.ConfirmPassword))
+            {
+                this.dialogService.Alert("Error", "The pasword and confirm does not math.", "Accept");
+                return;
+            }
+
+            this.IsLoading = true;
+
             // TODO: Make the local validations
             var request = new NewUserRequest
             {
@@ -158,12 +233,22 @@
                 "/Account",
                 request);
 
-            this.dialogService.Alert("Ok", "The user was created succesfully, you must " +
-                "confirm your user by the email sent to you and then you could login with " +
-                "the email and password entered.", "Accept");
+            this.isLoading = false;
 
-            await this.navigationService.Close(this);
+            if (!response.IsSuccess)
+            {
+                this.dialogService.Alert("Error", response.Message, "Accept");
+                return;
+            }
+
+
+            this.dialogService.Alert(
+            "Ok",
+            "The user was created succesfully, you must " +
+            "confirm your user by the email sent to you and then you could login with " +
+            "the email and password entered.",
+            "Accept",
+            () => { this.navigationService.Close(this); });
         }
     }
-
 }
